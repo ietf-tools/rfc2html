@@ -1,0 +1,6 @@
+include changelog
+include LICENSE
+include README.rst
+include rfc2html.py
+include tests.py
+include tox.ini
