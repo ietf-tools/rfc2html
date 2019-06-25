@@ -1,3 +1,28 @@
+rfc2html (2.0.1) ietf; urgency=medium
+
+  * Changed tabs to spaces for python 3.
+
+  * Now importing escape() from html instead of cgi if possible.  
+
+  * Added a name= keyword argument to markup(), in order to be able to do
+    special handling dependent on the draft or RFC name.  
+
+  * Added special case handling for draft-ietf-dnsop-interim-signed-root-01.
+
+  * Corrected the copyright in setup.py; fixed some pyflakes issues, and added
+    sys reload with defaultencoding UTF-8 under py27.
+
+  * Added a tox.ini file for test runs across py27 and 3.4-3.6, and a trivial
+    tests.py placeholder.
+
+  * Added control character stripping.
+
+  * Added code to identify not only the start but also the end of reference
+    section(s).
+
+ -- Henrik Levkowetz <henrik@levkowetz.com>  25 Jun 2019 07:28:00 -0700
+
+
 rfc2html (2.0.0) ietf; urgency=medium
 
   This is the first stand-alone release of the htmlization function used in
