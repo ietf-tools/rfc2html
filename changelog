@@ -20,7 +20,7 @@ rfc2html (2.0.1) ietf; urgency=medium
   * Added code to identify not only the start but also the end of reference
     section(s).
 
- -- Henrik Levkowetz <henrik@levkowetz.com>  25 Jun 2019 07:28:00 -0700
+ -- Henrik Levkowetz <henrik@levkowetz.com>  25 Jun 2019 07:28:53 -0700
 
 
 rfc2html (2.0.0) ietf; urgency=medium
