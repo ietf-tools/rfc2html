@@ -200,7 +200,7 @@ note "Verifying there's no uncommitted changes..."
 $do svn st | grep "^[AMGRD] " && die "There seems to be uncommitted changes in this working copy"
 
 note "\nDoing the upload"
-$do make upload
+$do python setup.py sdist upload --sign
 
 note "\nCreating new tag 'tags/${WORK:+$WORK/}$VER' from $SRC"
 $do svn cp $REPO/$SRC $REPO/tags/${WORK:+$WORK/}$VER -m "Creating new tag 'tags/${WORK:+$WORK/}$VER' from $SRC"
@@ -214,35 +214,35 @@ $do svn commit $VERFILE setup.py -m "Set version info back to development mode"
 
 $do svn update
 
-echo "
-Hi,
-
-This is an automatic notification about a new xml2rfc release, 
-v$VER, generated when running the mkrelease script.
-
-Release notes:
-
-$changes
-
-The preferred way to install xml2rfc is by doing 'pip install xml2rfc',
-and 'pip install --upgrade xml2rfc' to upgrade.  If there are system-
-installed python modules which pip will not upgrade, you may have to
-use 'pip install --upgrade --no-deps xml2rfc' and install dependencies
-manually.
-
-The new version is also available through SVN checkout, with
-  'svn checkout $REPO/tags/${WORK:+$WORK/}$VER'
-
-Regards,
-
-	Henrik
-	(via the mkrelease script)
-" > ./.mail/release-mail-v$VER.txt
-note "\nSend mail to interested parties"
-cat ./.mail/release-mail-v$VER.txt | $do mail -s "New xml2rfc release: v$VER" -c henrik@levkowetz.com  -c glen@amsl.com -c rjs@nostrum.com -c housley@vigilsec.com -c arusso@amsl.com -c sginoza@amsl.com -c mferguson@amsl.com $contributors rse@rfc-editor.org
-note "\nSend mail to mailing lists (avoiding too many addressees"
-cat ./.mail/release-mail-v$VER.txt | $do mail -s "New xml2rfc release: v$VER" xml2rfc@ietf.org xml2rfc-dev@ietf.org -c rfc-markdown@ietf.org
-
-#$do toolsfeed control changelog /www/tools.ietf.org/tools/atomfeed.xml
-$do toolpush /www/tools.ietf.org/tools/atomfeed.xml
-$do toolcmd sudo pip install --upgrade xml2rfc
+# echo "
+# Hi,
+# 
+# This is an automatic notification about a new xml2rfc release, 
+# v$VER, generated when running the mkrelease script.
+# 
+# Release notes:
+# 
+# $changes
+# 
+# The preferred way to install xml2rfc is by doing 'pip install xml2rfc',
+# and 'pip install --upgrade xml2rfc' to upgrade.  If there are system-
+# installed python modules which pip will not upgrade, you may have to
+# use 'pip install --upgrade --no-deps xml2rfc' and install dependencies
+# manually.
+# 
+# The new version is also available through SVN checkout, with
+#   'svn checkout $REPO/tags/${WORK:+$WORK/}$VER'
+# 
+# Regards,
+# 
+# 	Henrik
+# 	(via the mkrelease script)
+# " > ./.mail/release-mail-v$VER.txt
+# note "\nSend mail to interested parties"
+# cat ./.mail/release-mail-v$VER.txt | $do mail -s "New xml2rfc release: v$VER" -c henrik@levkowetz.com  -c glen@amsl.com -c rjs@nostrum.com -c housley@vigilsec.com -c arusso@amsl.com -c sginoza@amsl.com -c mferguson@amsl.com $contributors rse@rfc-editor.org
+# note "\nSend mail to mailing lists (avoiding too many addressees"
+# cat ./.mail/release-mail-v$VER.txt | $do mail -s "New xml2rfc release: v$VER" xml2rfc@ietf.org xml2rfc-dev@ietf.org -c rfc-markdown@ietf.org
+# 
+# #$do toolsfeed control changelog /www/tools.ietf.org/tools/atomfeed.xml
+# $do toolpush /www/tools.ietf.org/tools/atomfeed.xml
+# $do toolcmd sudo pip install --upgrade xml2rfc
