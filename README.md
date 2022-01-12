@@ -1,5 +1,8 @@
 # Htmlizing IETF Text Documents
 
+[![Release](https://img.shields.io/github/release/ietf-tools/rfc2html.svg?style=flat&maxAge=3600)](https://github.com/ietf-tools/rfc2html/releases)
+[![License](https://img.shields.io/badge/license-BSD3-blue.svg?style=flat)](https://github.com/ietf-tools/rfc2html/blob/main/LICENSE)
+
 This module contains one single function, `markup(text)` which adds HTML markup
 to what is assumed to be an IETF document (usually an [Internet-Draft] or an [RFC]):
 
