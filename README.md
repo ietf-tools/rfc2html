@@ -14,7 +14,7 @@ html = markup(text)
 ```
 
 As a historic artifact of being a document series which was started at the time when the easiest
-way of distributing a 'Request For Comments' was to type it up on a typewriter and mimeographing_
+way of distributing a *Request For Comments* was to type it up on a typewriter and [mimeographing]
 it, RFCs and Internet-Drafts have traditionally been published as plaintext documents with a
 maximum line length of 72 characters.
 
