@@ -72,7 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.102] - 2012-12-01
 ### Added
-- Added section title styling (<h2/> etc.) for section titles which break across 2 lines.
+- Added section title styling (`<h2/>` etc.) for section titles which break across 2 lines.
 - Added link markup for http/https/ftp URLs which break across 3 lines.
 
 ## [1.101] - 2012-05-01
@@ -112,7 +112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.94] - 2011-05-13
 ### Changed
-- Call out to idauthors to get author metainformation to put in DC (Dublin Core) metainformation tags, to improve crawler indexing. This is needed for documents for which the relevant document information isn't already available in the regular metainformation store at http://tools.ietf.org/draft/<<draftname>>/
+- Call out to idauthors to get author metainformation to put in DC (Dublin Core) metainformation tags, to improve crawler indexing. This is needed for documents for which the relevant document information isn't already available in the regular metainformation store at `http://tools.ietf.org/draft/<<draftname>>/`
 
 ## [1.93] - 2011-05-02
 ### Changed
@@ -223,7 +223,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.70] - 2008-10-08
 ### Changed
 - Changed the charset specification in the html from us-ascii to utf-8.
-- Changed the html which introduces page breaks when printed to use a <div> instead of a <span>, in order to work with Safari and Opera. Other minor, related, html tweaks.
+- Changed the html which introduces page breaks when printed to use a `<div>` instead of a `<span>`, in order to work with Safari and Opera. Other minor, related, html tweaks.
 
 ## [1.69] - 2008-08-31
 ### Added
@@ -352,13 +352,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a link to the draft an RFC came from, if known
 ### Changed
 - More refactoring of header layout code
-- Fixed up the <title/> to not include draft filename twice
+- Fixed up the `<title/>` to not include draft filename twice
 - Various minor bug-fixes
 
 ## [1.40] - 2006-11-17
 ### Added
 - Added status indication for RFCs - BCP, PS, DS, STD,...
-- Added html <title/> to the pages, taken from the doc title
+- Added html `<title/>` to the pages, taken from the doc title
 - Added google search links to title of "Work in Progress" references
 ### Changed
 - Refactored header layout code
@@ -378,8 +378,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.37] - 2006-10-11
 ### Added
-- Accept http:// URLs enclosed in '<' ... '>'.
-- Also accept ftp:// URLs.
+- Accept `http://` URLs enclosed in `'<'` ... `'>'`.
+- Also accept `ftp://` URLs.
 
 ## [1.36] - 2006-10-11
 ### Added
@@ -401,8 +401,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added a 'topmenu' argument, to avoid adding the top menu when not appropriate.
 ### Changed
-- Keeping \f, but making it non-display.  Safari seems to not like empty anchors.
-- Use script name rather than hardcoded "index.cgi" in the <form />
+- Keeping `\f`, but making it non-display.  Safari seems to not like empty anchors.
+- Use script name rather than hardcoded "index.cgi" in the `<form />`
 
 ## [1.31] - 2006-07-28
 ### Added
@@ -413,7 +413,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added URL textbox to the form shown when no doc spec. given
 ### Changed
-- Changed \s to " " many places -- \s includes \n ...
+- Changed `\s` to " " many places -- `\s` includes `\n` ...
 - Cleaned out un-used CSS.
 - Split out the top menu, using it only when showing a htmlized document.
 - Changed the text-only link to have an explicit .txt extension.
@@ -434,7 +434,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added links to plain text version, rfc repository and ID repository at the top of the page 
 - Added .header class to css
-- Added javascript code to add <h?/> markup for modern browsers.
+- Added javascript code to add `<h?/>` markup for modern browsers.
 ### Changed
 - A number of tweaks to make this look right for non-css browsers while keeping the header structure functionality, plus some other stuff.
 - Tweaked the css to make page come out with text placement exactly the same as for the plain-text version for recent RFCs.  For early RFCs and Drafts, all bets are off. 
@@ -445,8 +445,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Based on comments from Frank Ellerman:
 
 ### Added
-- Added a space before "/>" in the self-closing <span/>
-- Added lang="en" xml:lang="en" to <html>
+- Added a space before `"/>"` in the self-closing <span/>
+- Added lang="en" xml:lang="en" to `<html>`
 - Added support for "staticpath" option, to generate static files
 ### Changed
 - Changed character-set to "us-ascii"
@@ -465,7 +465,7 @@ Based on comments from Frank Ellerman:
 ### Changed 
 - Changed font size for printed page.  
 - Fixed the link to the shortcut icon, when run on the tools server.
-- Reverted from using <div class="pre"> to <pre>,  because the <div/> version doesn't work with lynx.
+- Reverted from using `<div class="pre">` to `<pre>`,  because the `<div/>` version doesn't work with lynx.
 ### Removed
 - Removed name="rfxNNNN" attributes again. 
 - Removed link indications in printed page. 
@@ -531,7 +531,7 @@ Based on comments from Frank Ellerman:
 
 ## [1.08] - 2004-09-17
 ### Added
-- Added re-formatting to fix broken page breaks in some cases (should be \\n\\f\\n )
+- Added re-formatting to fix broken page breaks in some cases (should be `\\n\\f\\n` )
 
 ## [1.07] - 2004-07-26
 ### Changed
@@ -539,7 +539,7 @@ Based on comments from Frank Ellerman:
 
 ## [1.06] - 2004-07-09
 ### Added
-- Added a <meta/> tag to prevent robots invoking the script on a very deep tree (all rfc and draft links...).  
+- Added a `<meta/>` tag to prevent robots invoking the script on a very deep tree (all rfc and draft links...).  
 - Added ability to handle relative urls with "url=" keyword.  
 - Added error message failure to retrieve url.  
 ### Changed
@@ -593,7 +593,7 @@ Based on comments from Frank Ellerman:
 ### Added
 - Added mac-to-unix text format conversion.
 ### Changed
-- Changed regexp for http:// urls to permit port numbers
+- Changed regexp for `http://` urls to permit port numbers
 - Changed regexp for draft-.. words to not include a final point. 
 
 ## [0.70] - 2003-03-04
@@ -610,11 +610,11 @@ Based on comments from Frank Ellerman:
 
 ## [0.67] - 2002-02-01
 ### Added
-- Added escaping of '<', '>', '&'.
+- Added escaping of `'<', '>', '&'`.
 
 ## [0.66] - 2002-12-08
 ### Added
-- Testing the Content-type of the original document, instead of looking for &lt;html&gt; tag to see if it's ok to proceed with markup. 
+- Testing the Content-type of the original document, instead of looking for `&lt;html&gt;` tag to see if it's ok to proceed with markup. 
 - Added javascript to hide email address of maintainer from harvesters.
 - Added link to download page to manpage text.
 - Added a program signature at the end of markup output.
@@ -657,7 +657,7 @@ Based on comments from Frank Ellerman:
 
 ## [0.2] - 2002-11-22
 ### Added
-- Added markup for explicit http:// links
+- Added markup for explicit `http://` links
 
 ## [0.1] - 2002-11-19
 ### Added
