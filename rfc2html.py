@@ -10,7 +10,7 @@ except ImportError:
     from cgi import escape
 import urllib
 
-__version__ = '2.0.7'
+__version__ = '2.0.8'
 
 BOM_CODE = 65279
 

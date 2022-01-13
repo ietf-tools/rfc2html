@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.8](https://github.com/ietf-tools/rfc2html/compare/v2.0.7...v2.0.8) (2022-01-13)
+
+
+### Bug Fixes
+
+* add missing setup.cfg to semantic-release/git ([fca4823](https://github.com/ietf-tools/rfc2html/commit/fca48236ae0c22c5c910bd4059062762e2fe20b3))
+
 ## [2.0.7](https://github.com/ietf-tools/rfc2html/compare/v2.0.6...v2.0.7) (2022-01-13)
 
 
