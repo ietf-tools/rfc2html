@@ -40,7 +40,7 @@
     [
       "@semantic-release/git",
       {
-        "assets": ["CHANGELOG.md", "rfc2html.py"]
+        "assets": ["CHANGELOG.md", "rfc2html.py", "setup.cfg"]
       }
     ],
     "@semantic-release/github"
