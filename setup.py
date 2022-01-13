@@ -22,64 +22,19 @@ import rfc2html
 here = os.path.abspath(os.path.dirname(__file__))
 
 # Get the long description from the README file
-with open(os.path.join(here, 'README.rst'), encoding='utf-8') as file:
+with open(os.path.join(here, 'README.md'), encoding='utf-8') as file:
     long_description = file.read()
 
 # Get the requirements from the local requirements.txt file
 with open(os.path.join(here, 'MANIFEST.in'), encoding='utf-8') as file:
     extra_files = [ l.split()[1] for l in file.read().splitlines() if l ]
 
-def parse(changelog):
-    ver_line = "^([a-z0-9+-]+) \(([^)]+)\)(.*?) *$"
-    sig_line = "^ -- ([^<]+) <([^>]+)>  (.*?) *$"
-    #
-    entries = []
-    if isinstance(changelog, type('')):
-        changelog = open(changelog, encoding='utf-8')
-    for line in changelog:
-        if re.match(ver_line, line):
-            package, version, rest = re.match(ver_line, line).groups()
-            entry = {}
-            entry["package"] = package
-            entry["version"] = version
-            entry["logentry"] = ""
-        elif re.match(sig_line, line):
-            author, email, date = re.match(sig_line, line).groups()
-            entry["author"] = author
-            entry["email"] = email
-            entry["datetime"] = date
-            entry["date"] = " ".join(date.split()[:3])
-            entries += [ entry ]
-        else:
-            entry["logentry"] += line
-    changelog.close()
-    entry["logentry"] = entry["logentry"].strip()
-    return entries
-
-
-changelog_entry_template = """
-Version %(version)s (%(date)s)
-------------------------------------------------
-
-%(logentry)s"""
-
-long_description += """
-Changelog
-=========
-""" + "\n".join([ changelog_entry_template % entry for entry in parse("changelog")[:2] ])
-
-
-
 setup(
     name='rfc2html',
 
-    # Versions should comply with PEP440.  For a discussion on single-sourcing
-    # the version across setup.py and the project code, see
-    # https://packaging.python.org/en/latest/single_source_version.html
-    version=rfc2html.__version__,
-
     description="Convert text-format RFCs and Internet-Drafts to html",
     long_description=long_description,
+    long_description_content_type="text/markdown",
 
     # The project's main homepage.
     url='https://tools.ietf.org/tools/rfcmarkup/',

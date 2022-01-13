@@ -1,0 +1,40 @@
+name: Publish Python Package
+
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+        
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip setuptools wheel twine
+        pip install build
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v2.5.1
+      with:
+        node-version: '16'
+        
+    - name: Run Semantic Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PYPI_TOKEN: ${{ secrets.TEST_PYPI_TOKEN }}
+      run: |
+        npm install -g semantic-release @semantic-release/changelog @semantic-release/git @google/semantic-release-replace-plugin semantic-release-pypi
+        npx semantic-release
