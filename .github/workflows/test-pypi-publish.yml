@@ -31,8 +31,9 @@ jobs:
     - name: Build Python package
       run: |
         sed -i -r -e "s/^__version__ = '.*'$/__version__ = '2.0.${{ github.run_number }}'/" rfc2html.py
-        python setup.py setopt --command=metadata --option=version --set-value=2.0.${{ github.run_number }}
-        python -m build
+        python ./setup.py setopt --command=metadata --option=version --set-value=2.0.${{ github.run_number }}
+        python ./setup.py sdist --dist-dir dist
+        python ./setup.py bdist_wheel --dist-dir dist
         
     - name: Publish to Test PyPI
       uses: pypa/gh-action-pypi-publish@v1.5.0
