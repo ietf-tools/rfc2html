@@ -34,6 +34,7 @@ setup(
 
     description="Convert text-format RFCs and Internet-Drafts to html",
     long_description=long_description,
+    long_description_content_type="text/markdown",
 
     # The project's main homepage.
     url='https://tools.ietf.org/tools/rfcmarkup/',
