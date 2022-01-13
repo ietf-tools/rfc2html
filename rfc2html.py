@@ -192,7 +192,7 @@ def markup(text, path=".", script="", extra="", name=None):
   
         # draft markup
         # draft name crossing line break
-        text = re.sub("([^/#=\?\w-])(draft-([-a-zA-Z0-9]+-)?)(\n +)([-a-zA-Z0-9]+[a-zA-Z0-9](.txt)?)",
+        text = re.sub("([^/#=\?\w-])(draft-([-a-zA-Z0-9]+-)?)((?: {3,}\S.*)?\n +)([-a-zA-Z0-9]+[a-zA-Z0-9](.txt)?)",
                         "\g<1><a href=\"%s?%sdraft=\g<2>\g<5>\">\g<2></a>\g<4><a href=\"%s?%sdraft=\g<2>\g<5>\">\g<5></a>" % (script, extra, script, extra), text)
         # draft name on one line (but don't mess with what we just did above)
         text = re.sub("([^/#=\?\w>=-])(draft-[-a-zA-Z0-9]+[a-zA-Z0-9](.txt)?)",
