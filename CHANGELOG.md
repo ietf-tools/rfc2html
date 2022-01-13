@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.5](https://github.com/ietf-tools/rfc2html/compare/v2.0.4...v2.0.5) (2022-01-13)
+
+
+### Bug Fixes
+
+* add missing ci dependencies ([3f891de](https://github.com/ietf-tools/rfc2html/commit/3f891dedabbfebb825a83d88a77e2eeffd93fd12))
+* update setup.py ([985b828](https://github.com/ietf-tools/rfc2html/commit/985b828f7834f4b5591ebd3f685fb1b1b847b346))
+
 ## [2.0.4](https://github.com/ietf-tools/rfc2html/compare/v2.0.3...v2.0.4) (2022-01-13)
 
 
