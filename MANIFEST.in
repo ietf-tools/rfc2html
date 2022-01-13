@@ -1,6 +1,6 @@
-include changelog
+include CHANGELOG.md
 include LICENSE
-include README.rst
+include README.md
 include rfc2html.py
 include tests.py
 include tox.ini
