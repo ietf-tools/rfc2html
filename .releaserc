@@ -1,0 +1,14 @@
+{
+  "branches": ["main"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    [
+        "semantic-release-pypi",
+        {
+            "repoUrl": "https://test.pypi.org/legacy/"
+        }
+    ]
+  ]
+}
