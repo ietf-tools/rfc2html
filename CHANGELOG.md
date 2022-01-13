@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.6](https://github.com/ietf-tools/rfc2html/compare/v2.0.5...v2.0.6) (2022-01-13)
+
+
+### Bug Fixes
+
+* long_description_content_type ([71054da](https://github.com/ietf-tools/rfc2html/commit/71054daaf32ef9879267ca8cb47e17fdcbb2ad0e))
+
 ## [2.0.5](https://github.com/ietf-tools/rfc2html/compare/v2.0.4...v2.0.5) (2022-01-13)
 
 
