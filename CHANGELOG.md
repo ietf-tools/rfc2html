@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/ietf-tools/rfc2html/compare/v2.0.1...v2.0.2) (2022-01-13)
+
+
+### Bug Fixes
+
+* test fix trigger ([6e76070](https://github.com/ietf-tools/rfc2html/commit/6e7607092f68d336949daf6613176350eb83ce64))
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
