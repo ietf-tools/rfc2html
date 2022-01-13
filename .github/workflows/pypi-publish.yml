@@ -1,0 +1,66 @@
+name: Publish Python Package
+
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+        
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v2.5.1
+      with:
+        node-version: '16'
+        
+    - name: Build package
+      run: python -m build
+        
+    - name: Run Semantic Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        npm install -g semantic-release @semantic-release/changelog semantic-release-pypi
+        npx semantic-release
+      
+    - uses: actions/upload-artifact@v2
+      with:
+        name: test-changelog
+        path: CHANGELOG.md
+      
+#     - name: Publish package
+#       uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
+#       with:
+#         print_hash: true
+#         user: __token__
+#         password: ${{ secrets.PYPI_API_TOKEN }}
+
+#     - name: Create Release
+#       uses: Roang-zero1/github-create-release-action@v2.1.0
+#       with:
+#         update_existing: false
+#         created_tag: # optional, default is 
+#         # Allows to pass a title for the release.
+#         release_title: 
+#         # Path of file that contains the Markdown formatted changelog.
+#         changelog_file: CHANGELOG.md
+#         # Heading level at which the tag headings exist.
+#         changelog_heading: h2
