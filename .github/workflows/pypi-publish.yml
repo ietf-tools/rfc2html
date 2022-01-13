@@ -37,6 +37,7 @@ jobs:
     - name: Run Semantic Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PYPI_TOKEN: ${{ secrets.TEST_PYPI_TOKEN }}
       run: |
         npm install -g semantic-release @semantic-release/changelog @semantic-release/git semantic-release-pypi
         npx semantic-release
@@ -45,22 +46,3 @@ jobs:
       with:
         name: test-changelog
         path: CHANGELOG.md
-      
-#     - name: Publish package
-#       uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
-#       with:
-#         print_hash: true
-#         user: __token__
-#         password: ${{ secrets.PYPI_API_TOKEN }}
-
-#     - name: Create Release
-#       uses: Roang-zero1/github-create-release-action@v2.1.0
-#       with:
-#         update_existing: false
-#         created_tag: # optional, default is 
-#         # Allows to pass a title for the release.
-#         release_title: 
-#         # Path of file that contains the Markdown formatted changelog.
-#         changelog_file: CHANGELOG.md
-#         # Heading level at which the tag headings exist.
-#         changelog_heading: h2
