@@ -1,3 +1,12 @@
+# Changelog
+
+## [2.0.4](https://github.com/ietf-tools/rfc2html/compare/v2.0.3...v2.0.4) (2022-01-13)
+
+
+### Bug Fixes
+
+* third test ([800f80b](https://github.com/ietf-tools/rfc2html/commit/800f80b06dd13b09ba8e6e548b702fad8b274a49))
+
 ## [2.0.3](https://github.com/ietf-tools/rfc2html/compare/v2.0.2...v2.0.3) (2022-01-13)
 
 
