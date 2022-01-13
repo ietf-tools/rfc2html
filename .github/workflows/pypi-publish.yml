@@ -34,7 +34,7 @@ jobs:
     - name: Run Semantic Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PYPI_TOKEN: ${{ secrets.TEST_PYPI_TOKEN }}
+        PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
       run: |
         npm install -g semantic-release @semantic-release/changelog @semantic-release/git @google/semantic-release-replace-plugin semantic-release-pypi
         npx semantic-release
