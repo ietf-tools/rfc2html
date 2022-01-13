@@ -41,8 +41,3 @@ jobs:
       run: |
         npm install -g semantic-release @semantic-release/changelog @semantic-release/git semantic-release-pypi
         npx semantic-release
-      
-    - uses: actions/upload-artifact@v2
-      with:
-        name: test-changelog
-        path: CHANGELOG.md
