@@ -31,8 +31,8 @@ jobs:
       with:
         node-version: '16'
         
-    - name: Build package
-      run: python -m build
+#     - name: Build package
+#       run: python -m build
         
     - name: Run Semantic Release
       env:
