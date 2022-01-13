@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.7](https://github.com/ietf-tools/rfc2html/compare/v2.0.6...v2.0.7) (2022-01-13)
+
+
+### Bug Fixes
+
+* add auto version change for rfc2html.py ([13d47c4](https://github.com/ietf-tools/rfc2html/commit/13d47c49f367daf9abd4853ae092439b0a579c98))
+
 ## [2.0.6](https://github.com/ietf-tools/rfc2html/compare/v2.0.5...v2.0.6) (2022-01-13)
 
 
