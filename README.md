@@ -1,10 +1,19 @@
-# Htmlizing IETF Text Documents
-
+<div align="center">
+    
+<img src="https://raw.githubusercontent.com/ietf-tools/common/main/assets/logos/ietf-rfc2html-logo.svg" alt="IETF RFC2HTML" width="600" />
+    
 [![Release](https://img.shields.io/github/release/ietf-tools/rfc2html.svg?style=flat&maxAge=600)](https://github.com/ietf-tools/rfc2html/releases)
-[![PyPI](https://img.shields.io/pypi/v/rfc2html)](https://pypi.org/project/rfc2html/)
 [![License](https://img.shields.io/github/license/ietf-tools/rfc2html)](https://github.com/ietf-tools/rfc2html/blob/main/LICENSE)
+[![PyPI - Version](https://img.shields.io/pypi/v/rfc2html)](https://pypi.org/project/rfc2html/)
+[![PyPI - Status](https://img.shields.io/pypi/status/rfc2html)](https://pypi.org/project/rfc2html/)
+[![PyPI - Format](https://img.shields.io/pypi/format/rfc2html)](https://pypi.org/project/rfc2html/)
+    
+##### Htmlizing IETF Text Documents
+    
+</div>
 
 - [Changelog](https://github.com/ietf-tools/rfc2html/blob/main/CHANGELOG.md)
+- [Contributing](https://github.com/ietf-tools/rfc2html/blob/main/CONTRIBUTING.md)
 
 This module contains one single function, `markup(text)` which adds HTML markup
 to what is assumed to be an IETF document (usually an [Internet-Draft] or an [RFC]):
