@@ -4,12 +4,12 @@ on:
   push:
     branches: [ develop ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ develop ]
   workflow_dispatch:
 
 jobs:
   analyze:
-    name: Analyze
+    name: Analyze Code
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -34,7 +34,7 @@ jobs:
       uses: github/codeql-action/analyze@v1
 
   tests:
-    name: Tests
+    name: Unit Tests
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
