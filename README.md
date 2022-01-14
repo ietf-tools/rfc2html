@@ -15,6 +15,10 @@
 - [Changelog](https://github.com/ietf-tools/rfc2html/blob/main/CHANGELOG.md)
 - [Contributing](https://github.com/ietf-tools/rfc2html/blob/main/CONTRIBUTING.md)
 
+---
+
+### Usage
+
 This module contains one single function, `markup(text)` which adds HTML markup
 to what is assumed to be an IETF document (usually an [Internet-Draft] or an [RFC]):
 
@@ -24,6 +28,8 @@ with open('rfc3344.txt') as file:
     text = file.read()
 html = markup(text)
 ```
+
+### History
 
 As a historic artifact of being a document series which was started at the time when the easiest
 way of distributing a *Request For Comments* was to type it up on a typewriter and [mimeographing]
