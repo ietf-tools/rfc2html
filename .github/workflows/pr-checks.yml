@@ -1,6 +1,8 @@
 name: PR Checks
 
 on:
+  push:
+    branches: [ develop ]
   pull_request:
     branches: [ main, develop ]
   workflow_dispatch:
@@ -30,3 +32,14 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Run Unit Tests
+      run: |
+        python -m unittest
