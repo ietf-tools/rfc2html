@@ -42,4 +42,5 @@ jobs:
       
     - name: Run Unit Tests
       run: |
-        python -m unittest
+        pip install tox
+        tox
