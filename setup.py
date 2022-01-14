@@ -5,7 +5,6 @@
 from __future__ import unicode_literals, print_function, division
 
 import os
-import re
 
 from codecs import open
 from setuptools import setup
@@ -17,17 +16,11 @@ try:
 except NameError:
     pass
 
-import rfc2html
-
 here = os.path.abspath(os.path.dirname(__file__))
 
 # Get the long description from the README file
 with open(os.path.join(here, 'README.md'), encoding='utf-8') as file:
     long_description = file.read()
-
-# Get the requirements from the local requirements.txt file
-with open(os.path.join(here, 'MANIFEST.in'), encoding='utf-8') as file:
-    extra_files = [ l.split()[1] for l in file.read().splitlines() if l ]
 
 setup(
     name='rfc2html',
@@ -37,7 +30,7 @@ setup(
     long_description_content_type="text/markdown",
 
     # The project's main homepage.
-    url='https://tools.ietf.org/tools/rfcmarkup/',
+    url='https://github.com/ietf-tools/rfc2html/',
 
     # Author details
     author='Henrik Levkowetz',
@@ -66,10 +59,11 @@ setup(
         # that you indicate whether you support Python 2, Python 3 or both.
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
-        #'Programming Language :: Python :: 3',
-        #'Programming Language :: Python :: 3.3',
-        #'Programming Language :: Python :: 3.4',
-        #'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
     ],
 
     # What does your project relate to?

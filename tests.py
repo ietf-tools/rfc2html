@@ -37,6 +37,7 @@ class MarkupTestCase(TestCase):
                 open_tag='<a href="./draft-ietf-some-name-00">',
             ))
 
+
 if __name__ == '__main__':
     import unittest
     unittest.main()
