@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/ietf-tools/rfc2html/compare/v2.0.1...v2.0.2) (2022-01-18)
+
+
+### Bug Fixes
+
+* fix:  ([21521cd](https://github.com/ietf-tools/rfc2html/commit/21521cdc677396e4b4a6b53450480a8ad7c42099))
+
 ## [2.0.1] - 2019-06-25
 ### Added
 - Added a name= keyword argument to markup(), in order to be able to do special handling dependent on the draft or RFC name.  
