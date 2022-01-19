@@ -25,7 +25,8 @@ jobs:
       run: |
         python -m venv venv
         source venv/bin/activate
-        python -m pip install --upgrade pip setuptools wheel twine
+        python -m pip install --upgrade pip setuptools wheel
+        pip install --upgrade --no-cache-dir --prefer-binary twine
         pip install build
         
     - name: Build Python package
@@ -34,13 +35,20 @@ jobs:
         python ./setup.py setopt --command=metadata --option=version --set-value=2.0.${{ github.run_number }}
         python ./setup.py sdist --dist-dir dist
         
-    - name: Publish to Test PyPI
-      uses: pypa/gh-action-pypi-publish@v1.5.0
+    - name: Import GPG
+      uses: crazy-max/ghaction-import-gpg@cb4264d3319acaa2bea23d51ef67f80b4f775013
       with:
-        password: ${{ secrets.TEST_PYPI_TOKEN }}
-        repository_url: https://test.pypi.org/legacy/
-        verbose: true
-        print_hash: true
+        gpg_private_key: ${{ secrets.TEST_GPG_PRIVATE_KEY }}
+        passphrase: ${{ secrets.TEST_GPG_PASSPHRASE }}
+        
+    - name: Publish to Test PyPI
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
+        TWINE_REPOSITORY_URL: https://test.pypi.org/legacy/
+      run: |
+        twine check dist/*
+        twine upload --verbose --sign dist/*
         
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v2.3.1
