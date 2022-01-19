@@ -47,8 +47,8 @@ jobs:
         TWINE_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
         TWINE_REPOSITORY_URL: https://test.pypi.org/legacy/
       run: |
-        twine check dist/*
-        twine upload --verbose --sign dist/*
+        python -m twine check dist/*
+        python -m twine upload --verbose --sign dist/*
         
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v2.3.1
