@@ -27,7 +27,7 @@ jobs:
         source venv/bin/activate
         python -m pip install --upgrade pip setuptools wheel twine
         pip install build
-        apt install -y twine
+        sudo apt install -y twine
         
     - name: Build Python package
       run: |
