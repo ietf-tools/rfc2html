@@ -22,11 +22,14 @@ jobs:
         python-version: '3.x'
         
     - name: Install Python dependencies
+      env:
+        DEBIAN_FRONTEND: noninteractive
       run: |
         python -m venv venv
         source venv/bin/activate
         python -m pip install --upgrade pip setuptools wheel twine
         pip install build
+        sudo apt update
         sudo apt install -y twine
         
     - name: Build Python package
