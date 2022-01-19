@@ -25,9 +25,9 @@ jobs:
       run: |
         python -m venv venv
         source venv/bin/activate
-        python -m pip install --upgrade pip setuptools wheel
-        pip install --upgrade --no-cache-dir --prefer-binary twine
+        python -m pip install --upgrade pip setuptools wheel twine
         pip install build
+        apt install -y twine
         
     - name: Build Python package
       run: |
@@ -47,8 +47,8 @@ jobs:
         TWINE_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
         TWINE_REPOSITORY_URL: https://test.pypi.org/legacy/
       run: |
-        python -m twine check dist/*
-        python -m twine upload --verbose --sign dist/*
+        twine check dist/*
+        twine upload --verbose --sign dist/*
         
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v2.3.1
