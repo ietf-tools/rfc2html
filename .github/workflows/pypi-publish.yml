@@ -92,13 +92,14 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         config_file: tag-changelog-config.js
         
-    - name: Update CHANGELOG.md
-      uses: vemel/nextchange@0.1.1
-      with:
-        release: ${{ env.PKG_VERSION }}
-        clear: true
-        set: ${{ steps.changelog.outputs.changes }}
-        save: true
+#     - name: Update CHANGELOG.md
+#       uses: vemel/nextchange@0.1.1
+#       if: startsWith(github.ref, 'refs/tags/v')
+#       with:
+#         release: ${{ env.PKG_VERSION }}
+#         clear: true
+#         set: ${{ steps.changelog.outputs.changes }}
+#         save: true
         
 #     - name: Update CHANGELOG.md
 #       uses: stefanzweifel/changelog-updater-action@v1
