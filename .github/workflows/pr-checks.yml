@@ -1,10 +1,10 @@
-name: PR Checks
+name: Tests + Code Analysis
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ main ]
   pull_request:
-    branches: [ develop ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -36,6 +36,7 @@ jobs:
   tests:
     name: Unit Tests
     runs-on: ${{ matrix.platform }}
+    if: github.event_name == 'pull_request'
     
     strategy:
       matrix:
