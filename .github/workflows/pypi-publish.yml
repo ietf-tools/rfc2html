@@ -79,34 +79,12 @@ jobs:
         twine check dist/*
         twine upload --verbose --sign dist/*
         
-    - name: Fetch Changelog Config
-      if: startsWith(github.ref, 'refs/tags/v')
-      run: |
-        wget https://github.com/ietf-tools/common/raw/main/ci-configs/tag-changelog-config.js
-        
-    - name: Create Changelog
+    - name: Update CHANGELOG
       id: changelog
-      uses: loopwerk/tag-changelog@v1
-      if: startsWith(github.ref, 'refs/tags/v')
+      uses: Requarks/changelog-action@v1.1.0
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        config_file: tag-changelog-config.js
-        
-#     - name: Update CHANGELOG.md
-#       uses: vemel/nextchange@0.1.1
-#       if: startsWith(github.ref, 'refs/tags/v')
-#       with:
-#         release: ${{ env.PKG_VERSION }}
-#         clear: true
-#         set: ${{ steps.changelog.outputs.changes }}
-#         save: true
-        
-#     - name: Update CHANGELOG.md
-#       uses: stefanzweifel/changelog-updater-action@v1
-#       if: startsWith(github.ref, 'refs/tags/v')
-#       with:
-#         latest-version: ${{ env.PKG_VERSION_STRICT }}
-#         release-notes: ${{ steps.changelog.outputs.changes }}
+        token: ${{ github.token }}
+        tag: ${{ github.ref_name }}
 
     - name: Commit CHANGELOG.md
       uses: stefanzweifel/git-auto-commit-action@v4
