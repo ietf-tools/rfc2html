@@ -27,13 +27,9 @@ Before going any further, make sure you read the [code of conduct](CODE_OF_CONDU
 
 ## Workflow Overview
 
-The rfc2html project uses the **Git Feature Workflow with Develop Branch** model.
+The rfc2html project uses the **Git Feature Workflow** model.
 
-It consists of two primary branches:
-
-**Main** - The main branch always reflects a production-ready state. Any push to this branch will trigger a deployment to production. Developers never push code directly to this branch.
-
-**Develop** - The develop branch contains the latest development changes for the next release. This is where new commits are merged.
+It consists of a **Main** branch which reflects the latest development state. New features / bug fixes are added to this branch until a new release is created, which creates a snapshot of the current branch state and perform deployment tasks.
 
 A typical development workflow:
 
@@ -115,14 +111,14 @@ gh repo clone john-doe/rfc2html
 
 ## Create a Local Branch
 
-While you could *technically* work directly on the develop branch, it is best practice to create a branch for the feature / fix you are working on. It also makes it much easier to fast-forward your forks develop branch to the match the source repository.
+While you could *technically* work directly on the main branch, it is best practice to create a branch for the feature / fix you are working on. It also makes it much easier to fast-forward your forks main branch to the match the source repository.
 
 1. From a terminal window, nagivate to the project directory you cloned earlier.
-2. First, make sure you are on the `develop` branch.:
+2. First, make sure you are on the `main` branch.:
 ```sh
-git checkout develop
+git checkout main
 ```
-3. Let's create a branch named `feature-1` based on the `develop` branch:
+3. Let's create a branch named `feature-1` based on the `main` branch:
 ```sh
 git checkout -b feature-1
 ```
@@ -173,13 +169,13 @@ git push origin feature-1
 
 ## Create a Pull Request
 
-When your feature / fix is ready to be merged with the source repository `develop` branch, it's time to create a **Pull Request (PR)**.
+When your feature / fix is ready to be merged with the source repository `main` branch, it's time to create a **Pull Request (PR)**.
 
 On GitHub, navigate to your branch (in your forked repository). A yellow banner will invite you to **Compare & pull request**. You can also click the **Contribute** dropdown to initiate a PR.
 
 ![](https://github.com/ietf-tools/common/raw/main/assets/docs/pr-buttons.png)
 
-Make sure the base repository is set to `ietf-tools/rfc2html` with the branch `develop` (this is the destination):
+Make sure the base repository is set to `ietf-tools/rfc2html` with the branch `main` (this is the destination):
 
 ![](https://github.com/ietf-tools/common/raw/main/assets/docs/pr-form.png)
 
@@ -187,19 +183,19 @@ Enter a title and description of what your PR includes and click **Create pull r
 
 Your PR will then be reviewed by the lead developer / other developers. Automated tests will also run on your code to catch any potential errors.
 
-Once approved and merged, your changes will appear in the `develop` branch. It's now time to fast-forward your fork to the source repository. This ensures your fork develop branch is in sync with the source develop branch...
+Once approved and merged, your changes will appear in the `main` branch. It's now time to fast-forward your fork to the source repository. This ensures your fork develop branch is in sync with the source develop branch...
 
 ## Sync your Fork
 
-Your fork `develop` branch is now behind the source `develop` branch. To fast-forward it to the latest changes, click the **Fetch upstream** button:
+Your fork `main` branch is now behind the source `main` branch. To fast-forward it to the latest changes, click the **Fetch upstream** button:
 
 ![](https://github.com/ietf-tools/common/raw/main/assets/docs/sync-branch.png)
 
 Note that you also need to fast-forward your **local machine** `develop` branch. This can again be done quickly from your editor / GUI tool. If you're using the command line, run these commands:
 
 ```sh
-git checkout develop
-git merge --ff-only origin/develop
+git checkout main
+git merge --ff-only origin/main
 ```
 
 > :information_source: While you could use the `git pull` command to achieve the same thing, this ensures that only a fast-forward operation will be executed and not a merge (which is most likely not what you want). You can read more about the different ways of pulling the latest changes via [git merge](https://git-scm.com/docs/git-merge), [git pull](https://git-scm.com/docs/git-pull) and [git rebase](https://git-scm.com/docs/git-rebase).
@@ -218,9 +214,9 @@ If you prefer to use the command line:
     ```
     This will save the current state of your branch so that it can be re-applied later.
 
-2. Run the [git rebase](https://git-scm.com/docs/git-rebase) command to fast-forward your branch to the latest commit from `develop` and then apply all your new commits on top of it:
+2. Run the [git rebase](https://git-scm.com/docs/git-rebase) command to fast-forward your branch to the latest commit from `main` and then apply all your new commits on top of it:
     ```sh
-    git rebase develop
+    git rebase main
     ```
     You can add the `-i` flag to the above command to trigger an interactive rebase session. Instead of blindly moving all of the commits to the new base, interactive rebasing gives you the opportunity to alter individual commits in the process.
 
@@ -241,6 +237,7 @@ If you prefer to use the command line:
 * Reference issues and pull requests liberally after the first line
 * When only changing documentation, include `[ci skip]` in the commit title
 * Consider starting the commit message with one of the following keywords (see [Conventional Commits](https://www.conventionalcommits.org/) specification):
+    * `chore`: Tool changes, configuration changes and changes to things that do not actually go into production
     * `ci:` Changes that affect the build system or external dependencies
     * `docs:` Documentation only changes
     * `feat:` A new feature
