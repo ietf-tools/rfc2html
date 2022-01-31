@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.0.3] - 2022-01-31
+### New Features
+- [`fbe4afa543`](https://github.com/ietf-tools/rfc2html/commit/fbe4afa543007df72438b63f6a2db88a46a7b7cf) - some test
+
+
 ## [2.0.2](https://github.com/ietf-tools/rfc2html/compare/v2.0.1...v2.0.2) (2022-01-18)
 
 ### Bug Fixes
@@ -992,3 +997,4 @@ Based on comments from Frank Ellerman:
 ### Added
 
 - Original version, markup for rfc and draft refs
+[v2.0.3]: https://github.com/ietf-tools/rfc2html/compare/v2.0.2...v2.0.3
