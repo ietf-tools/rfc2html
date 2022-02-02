@@ -997,4 +997,5 @@ Based on comments from Frank Ellerman:
 ### Added
 
 - Original version, markup for rfc and draft refs
+
 [v2.0.3]: https://github.com/ietf-tools/rfc2html/compare/v2.0.2...v2.0.3
