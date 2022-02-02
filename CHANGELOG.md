@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [`fbe4afa543`](https://github.com/ietf-tools/rfc2html/commit/fbe4afa543007df72438b63f6a2db88a46a7b7cf) - some test
 
 
-## [2.0.2](https://github.com/ietf-tools/rfc2html/compare/v2.0.1...v2.0.2) (2022-01-18)
+## [2.0.2](https://github.com/ietf-tools/rfc2html/compare/v2.0.1...v2.0.2) - 2022-01-18
 
 ### Bug Fixes
 
