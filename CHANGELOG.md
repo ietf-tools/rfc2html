@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Bug Fixes
 
-- fix: Recognize draft references in two-column title block ([21521cd](https://github.com/ietf-tools/rfc2html/commit/21521cdc677396e4b4a6b53450480a8ad7c42099))
+- [`21521cdc67`](https://github.com/ietf-tools/rfc2html/commit/21521cdc677396e4b4a6b53450480a8ad7c42099) Recognize draft references in two-column title block
 
 ## [2.0.1](https://github.com/ietf-tools/rfc2html/compare/v2.0.0...v2.0.1) - 2019-06-25
 
