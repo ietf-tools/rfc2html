@@ -63,13 +63,6 @@ jobs:
         gpg_private_key: ${{ secrets.TEST_GPG_PRIVATE_KEY }}
         passphrase: ${{ secrets.TEST_GPG_PASSPHRASE }}
         
-#     - name: Import GPG Key
-#       uses: crazy-max/ghaction-import-gpg@cb4264d3319acaa2bea23d51ef67f80b4f775013
-#       if: startsWith(github.ref, 'refs/tags/v')
-#       with:
-#         gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-#         passphrase: ${{ secrets.GPG_PASSPHRASE }}
-        
     - name: Publish to Test PyPI
       if: startsWith(github.ref, 'refs/tags/v') != true
       env:
@@ -82,7 +75,7 @@ jobs:
         
     - name: Update CHANGELOG
       id: changelog
-      uses: Requarks/changelog-action@v1.1.0
+      uses: Requarks/changelog-action@v1
       if: startsWith(github.ref, 'refs/tags/v')
       with:
         token: ${{ github.token }}
