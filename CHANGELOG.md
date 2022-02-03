@@ -10,13 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [`fbe4afa543`](https://github.com/ietf-tools/rfc2html/commit/fbe4afa543007df72438b63f6a2db88a46a7b7cf) - some test
 
 
-## [2.0.2](https://github.com/ietf-tools/rfc2html/compare/v2.0.1...v2.0.2) - 2022-01-18
+## [v2.0.2](https://github.com/ietf-tools/rfc2html/compare/v2.0.1...v2.0.2) - 2022-01-18
 
 ### Bug Fixes
 
 - [`21521cdc67`](https://github.com/ietf-tools/rfc2html/commit/21521cdc677396e4b4a6b53450480a8ad7c42099) Recognize draft references in two-column title block
 
-## [2.0.1](https://github.com/ietf-tools/rfc2html/compare/v2.0.0...v2.0.1) - 2019-06-25
+## [v2.0.1](https://github.com/ietf-tools/rfc2html/compare/v2.0.0...v2.0.1) - 2019-06-25
 
 ### Added
 
@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Now importing escape() from html instead of cgi if possible.
 - Corrected the copyright in setup.py; fixed some pyflakes issues, and added sys reload with defaultencoding UTF-8 under py27.
 
-## [2.0.0](https://github.com/ietf-tools/rfc2html/compare/v1.121...v2.0.0) - 2017-07-11
+## [v2.0.0](https://github.com/ietf-tools/rfc2html/compare/v1.121...v2.0.0) - 2017-07-11
 
 ### Added
 
