@@ -14,6 +14,7 @@
 
 - [Changelog](https://github.com/ietf-tools/rfc2html/blob/main/CHANGELOG.md)
 - [Contributing](https://github.com/ietf-tools/.github/blob/main/CONTRIBUTING.md)
+- [Release Procedure](https://github.com/ietf-tools/.github/blob/main/CONTRIBUTING.md#release-procedure)
 
 ---
 
