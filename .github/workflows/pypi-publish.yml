@@ -7,8 +7,12 @@ on:
     tags:
       - 'v*'
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Create Production Release'
+        required: true
+        type: boolean
 
 jobs:
   publish:
@@ -18,19 +22,51 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
+        
+    - name: Get Next Version
+      if: ${{ github.event.inputs.publish }}
+      id: semver
+      uses: ietf-tools/semver-action@v1
+      with:
+        token: ${{ github.token }}
+        branch: main
+        
+    - name: Set Next Version Env Var
+      if: ${{ github.event.inputs.publish }}
+      env:
+        NEXT_VERSION: ${{ steps.semver.outputs.next }}
+      run: |
+        echo "NEXT_VERSION=$next" >> $GITHUB_ENV
+        
+    - name: Create Draft Release
+      uses: ncipollo/release-action@v1
+      if: ${{ github.event.inputs.publish }}
+      with:
+        prerelease: true
+        draft: false
+        commit: ${{ github.sha }}
+        tag: ${{ env.NEXT_VERSION }}
+        name: ${{ env.NEXT_VERSION }}
+        body: '*pending*'
+        token: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Set Build Variables
       run: |
-        if [[ "$GITHUB_REF" =~ ^refs/tags/v* ]]; then
+        if [[ $NEXT_VERSION ]]; then
+          echo "Using AUTO SEMVER mode: $NEXT_VERSION"
+          echo "SHOULD_DEPLOY=true" >> $GITHUB_ENV
+          echo "PKG_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
+          echo "PKG_VERSION_STRICT=${NEXT_VERSION#?}" >> $GITHUB_ENV
+        elif [[ "$GITHUB_REF" =~ ^refs/tags/v* ]]; then
           echo "Using TAG mode: $GITHUB_REF_NAME"
+          echo "SHOULD_DEPLOY=true" >> $GITHUB_ENV
           echo "PKG_VERSION=$GITHUB_REF_NAME" >> $GITHUB_ENV
           echo "PKG_VERSION_STRICT=${GITHUB_REF_NAME#?}" >> $GITHUB_ENV
-          echo "TWINE_REPOSITORY_URL=https://test.pypi.org/legacy/" >> $GITHUB_ENV
         else
-          echo "Using BRANCH mode: v2.0.0-dev.$GITHUB_RUN_NUMBER"
+          echo "Using TEST mode: v2.0.0-dev.$GITHUB_RUN_NUMBER"
+          echo "SHOULD_DEPLOY=false" >> $GITHUB_ENV
           echo "PKG_VERSION=v2.0.0-dev.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
           echo "PKG_VERSION_STRICT=2.0.0-dev.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
-          echo "TWINE_REPOSITORY_URL=https://test.pypi.org/legacy/" >> $GITHUB_ENV
         fi
     
     - name: Setup Python
@@ -64,10 +100,11 @@ jobs:
         passphrase: ${{ secrets.TEST_GPG_PASSPHRASE }}
         
     - name: Publish to Test PyPI
-      if: startsWith(github.ref, 'refs/tags/v') != true
+      if: env.SHOULD_DEPLOY != 'true'
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
+        TWINE_REPOSITORY_URL: https://test.pypi.org/legacy/
       run: |
         echo "Using repository $TWINE_REPOSITORY_URL"
         twine check dist/*
@@ -76,26 +113,27 @@ jobs:
     - name: Update CHANGELOG
       id: changelog
       uses: Requarks/changelog-action@v1
-      if: startsWith(github.ref, 'refs/tags/v')
+      if: env.SHOULD_DEPLOY == 'true'
       with:
         token: ${{ github.token }}
-        tag: ${{ github.ref_name }}
+        tag: ${{ env.PKG_VERSION }}
 
     - name: Commit CHANGELOG.md
       uses: stefanzweifel/git-auto-commit-action@v4
-      if: startsWith(github.ref, 'refs/tags/v')
+      if: env.SHOULD_DEPLOY == 'true'
       with:
         branch: main
-        commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]'
-        file_pattern: CHANGELOG.md
+        commit_message: 'docs: update CHANGELOG.md + py files for ${{ env.PKG_VERSION }} [skip ci]'
+        file_pattern: CHANGELOG.md setup.cfg rfc2html.py
         
     - name: Create Release
       uses: ncipollo/release-action@v1
-      if: startsWith(github.ref, 'refs/tags/v')
+      if: env.SHOULD_DEPLOY == 'true'
       with:
         allowUpdates: true
         draft: false
-        name: ${{ github.ref_name }}
+        tag: ${{ env.PKG_VERSION }}
+        name: ${{ env.PKG_VERSION }}
         body: ${{ steps.changelog.outputs.changes }}
         artifacts: "dist/**"
         token: ${{ secrets.GITHUB_TOKEN }}
