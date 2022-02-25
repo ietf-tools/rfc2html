@@ -1,6 +1,6 @@
 <div align="center">
     
-<img src="https://raw.githubusercontent.com/ietf-tools/common/main/assets/logos/ietf-rfc2html-logo.svg" alt="IETF RFC2HTML" width="600" />
+<img src="https://raw.githubusercontent.com/ietf-tools/common/main/assets/logos/rfc2html.svg" alt="RFC2HTML" height="125" />
     
 [![Release](https://img.shields.io/github/release/ietf-tools/rfc2html.svg?style=flat&maxAge=600)](https://github.com/ietf-tools/rfc2html/releases)
 [![License](https://img.shields.io/github/license/ietf-tools/rfc2html)](https://github.com/ietf-tools/rfc2html/blob/main/LICENSE)
