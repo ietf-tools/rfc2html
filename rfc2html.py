@@ -269,7 +269,7 @@ def markup(text, path=".", script="", extra="", name=None):
             break
 
     # greying out the page headers and footers
-    text = re.sub("\n(.+\[Page \w+\])\n\f\n(.+)\n", """\n<span class="footer">\g<1></span>\n\f<span class="header">\g<2></span>\n""", text)
+    text = re.sub("\n(.+\[Page \w+\])\n\f\n(.+)\n", """\n<span class="grey">\g<1></span>\n\f<span class="grey">\g<2></span>\n""", text)
 
     # contents link markup: section links
     #                   1    2   3        4        5        6         7
@@ -286,7 +286,7 @@ def markup(text, path=".", script="", extra="", name=None):
         text = multidoc_separator.join(parts)
     else:
         # page name tag markup
-        text = re.sub("(?si)(\f)([^\f]*\[Page (\w+)\])", "\g<1><hr class=\"divider\" id=\"page-\g<3>\">\g<2>", text)
+        text = re.sub("(?si)(\f)([^\f]*\[Page (\w+)\])", "\g<1><hr id=\"page-\g<3>\">\g<2>", text)
         # contents link markup: page numbers
         text = re.sub("(?i)(\. ?\. +|\. \. \.|\.\.\. *)([0-9ivxlc]+)( *\n)", "\g<1><a href=\"#page-\g<2>\">\g<2></a>\g<3>", text)
 
