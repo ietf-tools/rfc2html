@@ -402,7 +402,7 @@ def markup(text, path=".", script="", extra="", name=None):
 
     #
     #text = re.sub("\f", "<div class=\"newpage\" />", text)
-    text = re.sub(r"\n?\f\n?", '\n', text)
+    text = re.sub(r"\n?\f\n?", '</pre>\n<pre class="newpage">', text)
 
     # restore indentation
     if prefixlen:
