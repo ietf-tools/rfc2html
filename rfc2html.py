@@ -279,8 +279,8 @@ def markup(text, path=".", script="", extra="", name=None):
     text = re.sub(r"(?m)^(\s*)(Appendix |)([A-Z](\.\d+)*)(\.?[ ]+)(.*[^ .])( *\. ?\.)(.*[0-9])$", r'\g<1><a href="#appendix-\g<3>">\g<2>\g<3></a>\g<5>\g<6>\g<7>\g<8>', text)
 
     # anchor markup: abstract, toc
-    text = re.sub(r"(?m)^(\s*)(Abstract)$", """\g<1><a id="abstract" href="#abstract" class="selflink">\g<2></a>""", text, count=1)
-    text = re.sub(r"(?m)^(\s*)(Table of Contents)$", """\g<1><a id="table-of-contents" href="#table-of-contents" class="selflink">\g<2></a>""", text, count=1)
+    text = re.sub(r"(?m)^(\s*)(Abstract)$", r"""\g<1><a id="abstract" href="#abstract" class="selflink">\g<2></a>""", text, count=1)
+    text = re.sub(r"(?m)^(\s*)(Table of Contents)$", r"""\g<1><a id="table-of-contents" href="#table-of-contents" class="selflink">\g<2></a>""", text, count=1)
 
     # page number markup
     multidoc_separator = r"========================================================================"
