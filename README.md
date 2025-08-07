@@ -30,6 +30,13 @@ with open('rfc3344.txt') as file:
 html = markup(text)
 ```
 
+This function can be used via the CLI:
+
+```bash
+$ rfc2html -v rfc3344.txt
+rfc3344.txt.html
+```
+
 ### History
 
 As a historic artifact of being a document series which was started at the time when the easiest

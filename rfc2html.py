@@ -5,6 +5,7 @@
 
 from __future__ import unicode_literals, print_function, division
 
+import argparse
 import re
 try:
     from html import escape
@@ -413,3 +414,22 @@ def markup(text, path=".", script="", extra="", name=None):
         text = re.sub(r"%s\?draft=" % script, r"%s/" % path, text)
 
     return text
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Convert RFC .txt files to .html ones.")
+    parser.add_argument("files", nargs="+", metavar="FILE", help="text file to htmlize")
+    parser.add_argument("-v", "--verbose", action="store_true", help="name the html files as they are created")
+    options = parser.parse_args()
+
+    for filename_txt in options.files:
+        filename_html = filename_txt + ".html"
+        with open(filename_txt) as file_txt:
+            with open(filename_html, "w") as file_html:
+                file_html.write(markup(file_txt.read()))
+        if options.verbose:
+            print(filename_html)
+
+
+if __name__ == "__main__":
+    main()
