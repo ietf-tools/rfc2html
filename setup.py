@@ -106,7 +106,11 @@ setup(
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow
     # pip to create the appropriate form of executable for the target platform.
-    #entry_points={},
+    entry_points={
+        "console_scripts": [
+            "rfc2html = rfc2html:main",
+        ],
+    },
 
 
     # We're reading schema files from a package directory.
