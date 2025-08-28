@@ -201,9 +201,23 @@ def markup(text, path=".", script="", extra="", name=None):
     text = re.sub(r"([^/#=\?\w>=-])(draft-[-a-zA-Z0-9]+[a-zA-Z0-9](.txt)?)",
                     r'\g<1><a href="%s?%sdraft=\g<2>">\g<2></a>' % (script, extra), text)
 
+    # Handle cross-RFC section references BEFORE RFC linking
+    for n in ['rfc', 'bcp', 'fyi', 'std']:
+        # section x of rfc y markup (unlinked) - mark RFC as processed with special marker
+        # Use more restrictive pattern to avoid matching across sentences
+        text = re.sub(r"(?i)(section\s)(\d+(\.\d+)*)([^.]*?)\s(of|in)\s+(%s[- ]?)(\d+)" % n,
+            r'<a href="%s?%s%s=\g<7>#section-\g<2>">\g<1>\g<2>\g<4> \g<5> \g<6>【\g<7>】</a>' % (script, extra, n), text)
+        text = re.sub(r"(?i)(section)\n(\s+)(\d+(\.\d+)*)([^.]*?)\s(of|in)\s+(%s[- ]?)(\d+)" % n,
+            r'<a href="%s?%s%s=\g<8>#section-\g<3>">\g<1></a>\n\g<2><a href="%s?%s%s=\g<8>#section-\g<3>">\g<3>\g<5> \g<6> \g<7>【\g<8>】</a>' % (script, extra, n, script, extra, n), text)
+        # appendix x of rfc y markup (unlinked)
+        text = re.sub(r"(?i)(appendix\s)([A-Z](\.\d+)*)([^.]*?)\s(of|in)\s+(%s[- ]?)(\d+)" % n,
+            r'<a href="%s?%s%s=\g<7>#appendix-\g<2>">\g<1>\g<2>\g<4> \g<5> \g<6>【\g<7>】</a>' % (script, extra, n), text)
+        text = re.sub(r"(?i)(appendix)\n(\s+)([A-Z](\.\d+)*)([^.]*?)\s(of|in)\s+(%s[- ]?)(\d+)" % n,
+            r'<a href="%s?%s%s=\g<8>#appendix-\g<3>">\g<1></a>\n\g<2><a href="%s?%s%s=\g<8>#appendix-\g<3>">\g<3>\g<5> \g<6> \g<7>【\g<8>】</a>' % (script, extra, n, script, extra, n), text)
+
     # rfc markup
-    # rfc and number on the same line
-    text = re.sub(r'(?i)([^[/>\w-])(rfc([- ]?))([0-9]+)(\W)',
+    # rfc and number on the same line (skip RFC numbers already processed in cross-refs)
+    text = re.sub(r'(?i)([^[/>\w\-\u3010])(rfc([- ]?))([0-9]+)(?!\u3011)(\W)',
                     r'\g<1><a href="%s?%srfc=\g<4>">\g<2>\g<4></a>\g<5>' % (script, extra), text)
     # rfc and number on separate lines
     text = re.sub(r"(?i)([^[/>\w-])(rfc([-]?))(\n +)([0-9]+)(\W)",
@@ -309,9 +323,10 @@ def markup(text, path=".", script="", extra="", name=None):
 
     text = re.sub(r"(?im)^(\d+(\.\d+)*)(\.?[ ]+\S.*?(\n +\w+.*)?(  |$))", section_anchor_replacement, text)
     #text = re.sub("(?i)(\n *\n *)(\d+(\.\d+)*)(\.?[ ].*)", section_replacement, text)
-    # section number link markup
-    text = re.sub(r"(?i)(section\s)(\d+(\.\d+)*)", r'<a href="#section-\g<2>">\g<1>\g<2></a>', text)
-    text = re.sub(r"(?i)(section)\n(\s+)(\d+(\.\d+)*)", r'<a href="#section-\g<3>">\g<1></a>\n\g<2><a href="#section-\g<3>">\g<3></a>', text)
+    # section number link markup (only for local sections not already inside links)
+    # Use negative lookbehind to avoid matching inside existing links
+    text = re.sub(r"(?i)(?<!>)(section\s)(\d+(\.\d+)*)", r'<a href="#section-\g<2>">\g<1>\g<2></a>', text)
+    text = re.sub(r"(?i)(?<!>)(section)\n(\s+)(\d+(\.\d+)*)", r'<a href="#section-\g<3>">\g<1></a>\n\g<2><a href="#section-\g<3>">\g<3></a>', text)
 
     # Special cases for licensing boilerplate
     text = text.replace('<a href="#section-4">Section 4</a>.e of the Trust Legal Provisions',
@@ -400,6 +415,9 @@ def markup(text, path=".", script="", extra="", name=None):
     # boilerplate text:
     text = re.sub(r'(?i)<a href="[^"]*"[^>]*>(section\s)(\d+(\.\d+)*)</a>(\.?[a-z]*\s+(of|in)\s*\n\s*the Trust Legal Provisions)',
         r'\g<1>\g<2>\g<4>', text)
+
+    # Clean up cross-RFC markers - convert them back to normal RFC text
+    text = re.sub(r'\u3010(\d+)\u3011', r'\1', text)
 
     #
     #text = re.sub("\f", "<div class=\"newpage\" />", text)
