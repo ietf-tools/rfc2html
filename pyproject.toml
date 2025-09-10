@@ -11,7 +11,7 @@ authors = [
 description = "Convert text-format RFCs and Internet-Drafts to html"
 keywords = ["svg", "validation", "rfc", "internet-draft", "html"]
 readme = "README.md"
-license = "BSD-2-Clause"
+license = "BSD-3-Clause"
 license-files = ["LICENSE"]
 requires-python = ">=2.7"
 classifiers = [
