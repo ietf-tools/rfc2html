@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rfc2html"
+dynamic = ["version"]
+authors = [
+  {name = "IETF Tools", email = "tools-help@ietf.org"},
+]
+description = "Convert text-format RFCs and Internet-Drafts to html"
+keywords = ["svg", "validation", "rfc", "internet-draft", "html"]
+readme = "README.md"
+license = "BSD-2-Clause"
+license-files = ["LICENSE"]
+requires-python = ">=2.7"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Text Processing",
+    "Topic :: Text Processing :: Markup :: XML",
+]
+
+[project.urls]
+homepage = "https://github.com/ietf-tools/rfc2html"
+source = "https://github.com/ietf-tools/rfc2html"
+issues = "https://github.com/ietf-tools/rfc2html/issues"
+changelog = "https://github.com/ietf-tools/rfc2html/blob/main/CHANGELOG.md"
+releasenotes = "https://github.com/ietf-tools/rfc2html/releases"
+
+[project.optional-dependencies]
+tests = [
+    "coverage",
+	"flake8",
+    "tox",
+]
+
+[project.scripts]
+rfc2html = "rfc2html:main"
+
+[tool.setuptools]
+py-modules = ["rfc2html"]
+
+[tool.setuptools.dynamic]
+version = {attr = "rfc2html.__version__"}
