@@ -65,13 +65,13 @@ class MarkupTestCase(TestCase):
                 'Section 11.1 (STARTTLS Security Considerations) of RFC 3501, and '
                 'Section 2.2.1 (Server Identity Check) of RFC 5804.')
         html = markup(text)
-        
+
         # Check that all cross-RFC section references are correctly linked
         self.assertIn('href="./rfc2595#section-2.4"', html)
         self.assertIn('href="./rfc3207#section-4.1"', html)
         self.assertIn('href="./rfc3501#section-11.1"', html)
         self.assertIn('href="./rfc5804#section-2.2.1"', html)
-        
+
         # Ensure no local section links for cross-RFC references
         self.assertNotIn('href="#section-2.4"', html)
         self.assertNotIn('href="#section-4.1"', html)
