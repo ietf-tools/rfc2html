@@ -82,8 +82,7 @@ jobs:
       run: |
         echo "Using version $PKG_VERSION_STRICT"
         sed -i -r -e "s/^__version__ = '.*'$/__version__ = '$PKG_VERSION_STRICT'/" rfc2html.py
-        python ./setup.py setopt --command=metadata --option=version --set-value=$PKG_VERSION_STRICT
-        python ./setup.py sdist --dist-dir dist
+        python3 -m build
 
     - name: Store the distribution packages
       uses: actions/upload-artifact@v4
