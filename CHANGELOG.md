@@ -5,6 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.1.0] - 2026-06-08
+### :sparkles: New Features
+- [`7bcf072`](https://github.com/ietf-tools/rfc2html/commit/7bcf072a72036da36f7e1ae2b81e23e269d8d1cf) - CLI entrypoint *(PR [#47](https://github.com/ietf-tools/rfc2html/pull/47) by [@Julien00859](https://github.com/Julien00859))*
+- [`47de0bd`](https://github.com/ietf-tools/rfc2html/commit/47de0bd21f52f4bd9a8562f2e13b992979529202) - Drop support for unsupported Python versions *(PR [#53](https://github.com/ietf-tools/rfc2html/pull/53) by [@kesara](https://github.com/kesara))*
+  - :arrow_lower_right: *addresses issue [#50](https://github.com/ietf-tools/rfc2html/issues/50) opened by [@kesara](https://github.com/kesara)*
+- [`058ddb4`](https://github.com/ietf-tools/rfc2html/commit/058ddb4782532a01ec009bf795f772b6ddc7fd20) - Migrate to pyproject.toml *(PR [#52](https://github.com/ietf-tools/rfc2html/pull/52) by [@kesara](https://github.com/kesara))*
+  - :arrow_lower_right: *addresses issue [#49](https://github.com/ietf-tools/rfc2html/issues/49) opened by [@kesara](https://github.com/kesara)*
+- [`3f70a19`](https://github.com/ietf-tools/rfc2html/commit/3f70a19e5cd0bf15c2493d2fea043b5494cbe6c5) - Add support for Python 3.14 *(PR [#58](https://github.com/ietf-tools/rfc2html/pull/58) by [@bkmgit](https://github.com/bkmgit))*
+  - :arrow_lower_right: *addresses issue [#57](https://github.com/ietf-tools/rfc2html/issues/57) opened by [@bkmgit](https://github.com/bkmgit)*
+- [`13f56da`](https://github.com/ietf-tools/rfc2html/commit/13f56da41f012c3715defb87e968af39cd699118) - Drop support for Python 3.9 *(PR [#64](https://github.com/ietf-tools/rfc2html/pull/64) by [@kesara](https://github.com/kesara))*
+  - :arrow_lower_right: *addresses issue [#59](https://github.com/ietf-tools/rfc2html/issues/59) opened by [@kesara](https://github.com/kesara)*
+
+### :bug: Bug Fixes
+- [`d83edec`](https://github.com/ietf-tools/rfc2html/commit/d83edec67c75169d46fe31cf7f0c2b0790a9c9e9) - Don't use inline tags or single quotes in HTML. *(PR [#11](https://github.com/ietf-tools/rfc2html/pull/11) by [@larseggert](https://github.com/larseggert))*
+- [`fde3d1e`](https://github.com/ietf-tools/rfc2html/commit/fde3d1e8146f0e86667101fd11821210eee89dd8) - Use `h` tags for headings instead of classes. *(PR [#12](https://github.com/ietf-tools/rfc2html/pull/12) by [@larseggert](https://github.com/larseggert))*
+  - :arrow_lower_right: *fixes issue [#3466](https://github.com/ietf-tools/datatracker/issues/3466) opened by [@ietf-svn-bot](https://github.com/ietf-svn-bot)*
+
+### :construction_worker: Build System
+- [`c827b37`](https://github.com/ietf-tools/rfc2html/commit/c827b373b99d6b683514f9faa534b9a4fa6fbd6e) - use updated changelog action *(commit by [@NGPixel](https://github.com/NGPixel))*
+- [`a3637bb`](https://github.com/ietf-tools/rfc2html/commit/a3637bb243c6b1b66637f41bbcf6611988206d11) - add auto semver steps *(commit by [@NGPixel](https://github.com/NGPixel))*
+- [`2b62183`](https://github.com/ietf-tools/rfc2html/commit/2b62183c917d720ee98b9697a71868ce7e043da7) - Use PyPI trusted publishing *(PR [#54](https://github.com/ietf-tools/rfc2html/pull/54) by [@kesara](https://github.com/kesara))*
+  - :arrow_lower_right: *addresses issue [#48](https://github.com/ietf-tools/rfc2html/issues/48) opened by [@kesara](https://github.com/kesara)*
+- [`f48efeb`](https://github.com/ietf-tools/rfc2html/commit/f48efebcae1a60d7a8263bbc85f62ea6fdd2779d) - Fix typo in create-pull-request *(PR [#65](https://github.com/ietf-tools/rfc2html/pull/65) by [@kesara](https://github.com/kesara))*
+- [`4ef20e4`](https://github.com/ietf-tools/rfc2html/commit/4ef20e40dd83b9e58bdeaf5df8c1ccbc953185a9) - Fix typo in pyproject.toml *(PR [#66](https://github.com/ietf-tools/rfc2html/pull/66) by [@kesara](https://github.com/kesara))*
+
+### :memo: Documentation Changes
+- [`4364600`](https://github.com/ietf-tools/rfc2html/commit/43646002f22ebbef264314d196f3f6d164f38e06) - update CHANGELOG.md for v2.0.3 [skip ci] *(commit by [@NGPixel](https://github.com/NGPixel))*
+- [`385dac6`](https://github.com/ietf-tools/rfc2html/commit/385dac61d29bf82edce6e1750155ff70f1e207be) - fix CHANGELOG footer links *(commit by [@NGPixel](https://github.com/NGPixel))*
+- [`640ab2c`](https://github.com/ietf-tools/rfc2html/commit/640ab2c5f537dd64eaeebc2d66f7c43d9cac7731) - fix changelog header *(commit by [@NGPixel](https://github.com/NGPixel))*
+- [`656974a`](https://github.com/ietf-tools/rfc2html/commit/656974a184d3b53c825b09f3b007e019b600112f) - fix CHANGELOG *(commit by [@NGPixel](https://github.com/NGPixel))*
+- [`c3ed0c7`](https://github.com/ietf-tools/rfc2html/commit/c3ed0c7074edd0f5b84914696858a10a237b20ed) - fix CHANGELOG previous versions headers *(commit by [@NGPixel](https://github.com/NGPixel))*
+- [`fcaed60`](https://github.com/ietf-tools/rfc2html/commit/fcaed60939c59fd8c62cf05c58a4d88930f9f632) - add link to release procedure *(commit by [@NGPixel](https://github.com/NGPixel))*
+- [`e5520fd`](https://github.com/ietf-tools/rfc2html/commit/e5520fd38895e13ef55c3e4310a71ffe90a105c8) - update README logo *(commit by [@NGPixel](https://github.com/NGPixel))*
+
+### :wrench: Chores
+- [`edb25a8`](https://github.com/ietf-tools/rfc2html/commit/edb25a81e2864e1bcbc45053c38f34227fb02192) - add Python 3.10-3.13 *(PR [#40](https://github.com/ietf-tools/rfc2html/pull/40) by [@jennifer-richards](https://github.com/jennifer-richards))*
+
+
 ## [v2.0.3] - 2022-01-31
 ### New Features
 - [`fbe4afa543`](https://github.com/ietf-tools/rfc2html/commit/fbe4afa543007df72438b63f6a2db88a46a7b7cf) - some test
@@ -999,3 +1037,4 @@ Based on comments from Frank Ellerman:
 - Original version, markup for rfc and draft refs
 
 [v2.0.3]: https://github.com/ietf-tools/rfc2html/compare/v2.0.2...v2.0.3
+[v2.1.0]: https://github.com/ietf-tools/rfc2html/compare/v2.0.3...v2.1.0
