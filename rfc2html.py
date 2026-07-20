@@ -7,10 +7,7 @@ from __future__ import unicode_literals, print_function, division
 
 import argparse
 import re
-try:
-    from html import escape
-except ImportError:
-    from cgi import escape
+from html import escape
 import urllib
 
 __version__ = '2.1.0'
