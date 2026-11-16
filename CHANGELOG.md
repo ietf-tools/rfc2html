@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.2.0] - 2026-11-16
+### :sparkles: New Features
+- [`cbfecbf`](https://github.com/ietf-tools/rfc2html/commit/cbfecbfc4482c6faade0f7e10cbc5ecc94932e94) - Properly link to cross-referenced RFCs *(PR [#51](https://github.com/ietf-tools/rfc2html/pull/51) by [@logan-stytch](https://github.com/logan-stytch))*
+  - :arrow_lower_right: *addresses issue [#38](https://github.com/ietf-tools/rfc2html/issues/38) opened by [@chrislandis](https://github.com/chrislandis)*
+
+### :construction_worker: Build System
+- [`31e71a6`](https://github.com/ietf-tools/rfc2html/commit/31e71a62d3773ee5c3b67b07a08b0bf98b8e4358) - Include only relevant files for the release PR *(PR [#85](https://github.com/ietf-tools/rfc2html/pull/85) by [@kesara](https://github.com/kesara))*
+  - :arrow_lower_right: *addresses issue [#68](https://github.com/ietf-tools/rfc2html/issues/68) opened by [@kesara](https://github.com/kesara)*
+
+### :memo: Documentation Changes
+- [`2cd4885`](https://github.com/ietf-tools/rfc2html/commit/2cd48857ed5d7fb69c5bf124cce8b122c6fe1a85) - update CHANGELOG.md + py file versions for v2.1.0 [skip ci] *(PR [#67](https://github.com/ietf-tools/rfc2html/pull/67) by [@github-actions[bot]](https://github.com/apps/github-actions))*
+
+
 ## [v2.1.0] - 2026-06-08
 ### :sparkles: New Features
 - [`7bcf072`](https://github.com/ietf-tools/rfc2html/commit/7bcf072a72036da36f7e1ae2b81e23e269d8d1cf) - CLI entrypoint *(PR [#47](https://github.com/ietf-tools/rfc2html/pull/47) by [@Julien00859](https://github.com/Julien00859))*
@@ -1038,3 +1051,4 @@ Based on comments from Frank Ellerman:
 
 [v2.0.3]: https://github.com/ietf-tools/rfc2html/compare/v2.0.2...v2.0.3
 [v2.1.0]: https://github.com/ietf-tools/rfc2html/compare/v2.0.3...v2.1.0
+[v2.2.0]: https://github.com/ietf-tools/rfc2html/compare/v2.1.0...v2.2.0
