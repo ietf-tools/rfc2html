@@ -185,6 +185,9 @@ jobs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v7
       with:
+        add-paths: |
+          CHANGELOG.md
+          rfc2html.py
         commit-message: 'docs: update CHANGELOG.md + py file versions for ${{ env.PKG_VERSION }} [skip ci]'
 
   publish-to-testpypi:
