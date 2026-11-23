@@ -95,6 +95,100 @@ class MarkupTestCase(TestCase):
         self.assertEqual(content.count('\n'), 1)
 
 
+class ParagraphLinksTestCase(TestCase):
+
+    DOC = (
+        'Header\n\n'
+        'Abstract\n\n'
+        '   First abstract paragraph.\n\n'
+        '   Second abstract paragraph.\n\n'
+        'Status of This Memo\n\n'
+        '   Boilerplate text.\n\n'
+        'Table of Contents\n\n'
+        '   1.  Introduction ......................................... 2\n\n'
+        '1.  Introduction\n\n'
+        '   First paragraph\n'
+        '   over two lines.\n\n'
+        '   Figure follows:\n\n'
+        '   +-------+\n'
+        '   |  Box  |\n'
+        '   +-------+\n\n'
+        '   Paragraph after the figure.\n\n'
+        '1.1.  Details\n\n'
+        '   A subsection paragraph.\n\n'
+        'Appendix A.  Extra\n\n'
+        '   An appendix paragraph.\n\n'
+        'Contributors\n\n'
+        '   A contributor paragraph.\n'
+    )
+
+    @staticmethod
+    def link(target):
+        return '<a id="{0}"></a>'.format(target)
+
+    @staticmethod
+    def pilcrow(target):
+        return '<a href="#{0}" class="pilcrow">\u00b6</a>'.format(target)
+
+    def test_default_off(self):
+        html = markup(self.DOC)
+        self.assertNotIn('pilcrow', html)
+        self.assertEqual(html, markup(self.DOC, paragraph_links=False))
+
+    def test_only_adds_links(self):
+        import re
+        html = markup(self.DOC, paragraph_links=True)
+        stripped = re.sub(r'<a id="section-[^"]*"></a>|<a href="#section-[^"]*" class="pilcrow">\u00b6</a>', '', html)
+        self.assertEqual(stripped, markup(self.DOC))
+
+    def test_paragraph_ids(self):
+        html = markup(self.DOC, paragraph_links=True)
+        self.assertIn('   ' + self.link('section-abstract-1') + 'First abstract paragraph.' + self.pilcrow('section-abstract-1') + '\n', html)
+        self.assertIn(self.link('section-abstract-2'), html)
+        self.assertIn(self.link('section-boilerplate.1-1'), html)
+        self.assertIn(self.link('section-1-1'), html)
+        self.assertIn('over two lines.' + self.pilcrow('section-1-1'), html)
+        self.assertIn(self.link('section-1.1-1'), html)
+        self.assertIn(self.link('section-appendix.a-1'), html)
+        # Unnumbered back matter continues the appendix lettering
+        self.assertIn(self.link('section-appendix.b-1'), html)
+
+    def test_figure_advances_counter_without_link(self):
+        html = markup(self.DOC, paragraph_links=True)
+        self.assertIn(self.link('section-1-2'), html)   # "Figure follows:"
+        self.assertNotIn('section-1-3"', html)          # the figure itself
+        self.assertIn(self.link('section-1-4'), html)   # paragraph after the figure
+
+    def test_toc_is_skipped(self):
+        html = markup(self.DOC, paragraph_links=True)
+        self.assertNotIn('section-toc', html)
+        self.assertNotIn('Introduction ......' + self.pilcrow('section-toc.1-1'), html)
+
+    def test_no_links_before_first_section(self):
+        html = markup('Some header text\n\n   Not a paragraph.\n', paragraph_links=True)
+        self.assertNotIn('pilcrow', html)
+
+    def test_paragraph_spanning_page_break(self):
+        filler = '   filler line\n' * 30
+        text = ('Header\n\n1.  Intro\n\n' + filler + '\n'
+                '2.  Next\n\n'
+                '   This paragraph starts at the bottom of a page and\n\n\n'
+                'Author                  Standards Track                 [Page 1]\n'
+                '\f\n'
+                'RFC 9999                    Test                    June 2025\n\n\n'
+                '   continues on the next one.\n\n'
+                '   A new paragraph.\n')
+        html = markup(text, paragraph_links=True)
+        self.assertEqual(html.count('<a id="section-2-1"></a>'), 1)
+        self.assertIn('continues on the next one.' + self.pilcrow('section-2-1'), html)
+        self.assertIn(self.link('section-2-2'), html)
+        self.assertNotIn('section-2-3', html)
+
+    def test_last_paragraph(self):
+        html = markup('Header\n\n1.  Intro\n\n   Last paragraph.\n', paragraph_links=True)
+        self.assertIn('Last paragraph.' + self.pilcrow('section-1-1') + '\n</pre>', html)
+
+
 if __name__ == '__main__':
     import unittest
     unittest.main()

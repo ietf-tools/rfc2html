@@ -22,7 +22,193 @@ CROSSREF_START_TAG = "\uE000"
 CROSSREF_END_TAG = "\uE001"
 
 
-def markup(text, path=".", script="", extra="", name=None):
+# Paragraph link support (opt-in, see markup(paragraph_links=True)).
+#
+# The ids follow the scheme used by the xml2rfc HTML renderer, e.g.
+# section-abstract-1, section-boilerplate.1-1, section-2.1-3 and
+# section-appendix.a-2.  The text format carries no explicit structure, so
+# only plain paragraphs get a link target and a pilcrow; figures, tables and
+# lists are recognised heuristically and only advance the paragraph counter.
+
+_PL_FOOTER = re.compile(r"\[Page \w+\](</span>)?\s*$")
+_PL_UNNUMBERED = re.compile(
+    r"(?i)^(?:(?P<abstract>Abstract)|(?P<status>Status of this Memo)|(?P<copyright>Copyright Notice)"
+    r"|(?P<toc>Table of Contents)"
+    r"|(?P<back>Acknowledg(?:e)?ments?|Contributors?|Index|(?:Authors?|Editors?)(?:'|&#x27;)? Add?resses?))$")
+_PL_LIST_ITEM = re.compile(r"^ *(?:[-*o+]|\d+[.)]|[a-z][.)]|\([a-z0-9]+\))\s+\S")
+_PL_DEFINITION = re.compile(r"^ *\S.{0,60}?:  +\S")
+_PL_ART = re.compile(r"\+[-=+]{2,}|[-=_]{5,}|^\s*[|+].*[|+]\s*$|\|\s{2,}\||/\s+\\|\\\s+/|\.{4,}|\S {6,}\S|\b[0-9a-f]{16,}\b", re.M)
+_PL_SENTENCE_END = re.compile(r"(?:[.:?!;)\]]|&quot;|&#x27;|&gt;)$")
+
+
+def _plain(line):
+    return re.sub(r"<[^>]*>", "", line)
+
+
+def _indent(line):
+    return len(line) - len(line.lstrip(" "))
+
+
+def _paragraph_links(text):
+    """Add a link target at the start, and a pilcrow link at the end, of each
+    paragraph.  Operates on already htmlized text, as the last step before the
+    page breaks are converted."""
+    lines = text.split("\n")
+    count = len(lines)
+
+    # Classify lines
+    kinds = []
+    for line in lines:
+        plain = _plain(line)
+        if re.match(r"<h\d>", line):
+            kinds.append("heading")
+        elif line.startswith("\f") or _PL_FOOTER.search(line):
+            kinds.append("furniture")
+        elif not plain.strip():
+            kinds.append("blank")
+        elif plain == plain.lstrip() and _PL_UNNUMBERED.match(plain.rstrip()):
+            kinds.append("unnumbered")
+        else:
+            kinds.append("text")
+
+    # Group text lines into blocks.  Page headers and footers are transparent,
+    # so a block can continue across a page break.
+    def continues(block, i):
+        previous = lines[block[-1]]
+        if _indent(lines[i]) != _indent(previous):
+            return False
+        first = _plain(lines[i]).strip()
+        return not _PL_SENTENCE_END.search(_plain(previous).rstrip()) or first[:1].islower()
+
+    items = []
+    block = []
+    pending_break = False
+    for i in range(count):
+        kind = kinds[i]
+        if kind == "blank":
+            if block and not pending_break:
+                j = i + 1
+                while j < count and kinds[j] == "blank":
+                    j += 1
+                if j < count and kinds[j] == "furniture":
+                    pending_break = True
+                else:
+                    items.append(("text", block))
+                    block = []
+        elif kind == "furniture":
+            if block:
+                pending_break = True
+        elif kind in ("heading", "unnumbered"):
+            if block:
+                items.append(("text", block))
+                block = []
+            pending_break = False
+            items.append((kind, i))
+        else:
+            if block and pending_break and not continues(block, i):
+                items.append(("text", block))
+                block = []
+            pending_break = False
+            block.append(i)
+    if block:
+        items.append(("text", block))
+
+    # The body text indentation is the most common indentation of block starts
+    starts = {}
+    for kind, value in items:
+        if kind == "text":
+            indent = _indent(lines[value[0]])
+            if indent:
+                starts[indent] = starts.get(indent, 0) + 1
+    base = max(starts, key=lambda k: (starts[k], -k)) if starts else 3
+
+    section = None          # id prefix of the current section
+    skip = True             # no paragraph links in this section
+    counter = 0
+    previous_nonpara = False
+    seen_numbered = False
+    boilerplate = 0
+    appendix_letter = ord("a") - 1
+    last_heading = False
+    for kind, value in items:
+        if kind == "heading":
+            line = lines[value]
+            match = re.search(r'class="selflink" id="(section|appendix)-([^"]+)"', line)
+            if match:
+                seen_numbered = True
+                number = match.group(2)
+                if match.group(1) == "section":
+                    section = "section-" + number
+                elif "." in number:
+                    section = "section-" + number.lower()
+                else:
+                    section = "section-appendix." + number.lower()
+                    appendix_letter = ord(number.lower())
+                counter = 0
+                previous_nonpara = False
+                skip = "reference" in _plain(line).lower()
+            elif last_heading and section:
+                skip = skip or "reference" in _plain(line).lower()
+            last_heading = True
+            continue
+        last_heading = False
+        if kind == "unnumbered":
+            match = _PL_UNNUMBERED.match(_plain(lines[value]).rstrip())
+            counter = 0
+            previous_nonpara = False
+            skip = False
+            if match.group("abstract") and not seen_numbered:
+                section = "section-abstract"
+            elif (match.group("status") or match.group("copyright")) and not seen_numbered:
+                boilerplate += 1
+                section = "section-boilerplate.%d" % boilerplate
+            elif match.group("toc") and not seen_numbered:
+                section = None
+            elif match.group("back") and seen_numbered:
+                appendix_letter += 1
+                section = "section-appendix." + chr(appendix_letter)
+                skip = bool(re.search(r"(?i)index|address", match.group("back")))
+            else:
+                # Not a heading after all; treat as ordinary text
+                kind = "text"
+                value = [value]
+            if kind == "unnumbered":
+                continue
+        if section is None or skip:
+            continue
+
+        # A block of text
+        block = value
+        indents = [_indent(lines[i]) for i in block]
+        plain = "\n".join(_plain(lines[i]) for i in block)
+        is_paragraph = (all(indent == base for indent in indents)
+                        and not _PL_LIST_ITEM.match(plain)
+                        and not _PL_DEFINITION.match(plain)
+                        and not _PL_ART.search(plain))
+        if is_paragraph:
+            counter += 1
+            previous_nonpara = False
+            target = "%s-%d" % (section, counter)
+            first = lines[block[0]]
+            lines[block[0]] = first[:base] + '<a id="%s"></a>' % target + first[base:]
+            pilcrow = '<a href="#%s" class="pilcrow">\u00b6</a>' % target
+            last = lines[block[-1]]
+            if last.endswith("</pre>"):
+                last = last[:-len("</pre>")] + pilcrow + "</pre>"
+            else:
+                last += pilcrow
+            lines[block[-1]] = last
+        else:
+            # Figures, tables and lists count as one element; adjacent
+            # non-paragraph blocks are taken to be part of the same element.
+            if not previous_nonpara:
+                counter += 1
+            previous_nonpara = True
+
+    return "\n".join(lines)
+
+
+def markup(text, path=".", script="", extra="", name=None, paragraph_links=False):
 
     # ------------------------------------------------------------------------
     # Start of markup handling
@@ -431,6 +617,9 @@ def markup(text, path=".", script="", extra="", name=None):
     # Clean up cross-RFC markers - convert them back to normal RFC text
     text = re.sub(re.escape(CROSSREF_START_TAG) + r'(\d+)' + re.escape(CROSSREF_END_TAG), r'\1', text)
 
+    if paragraph_links:
+        text = _paragraph_links(text)
+
     #
     #text = re.sub("\f", "<div class=\"newpage\" />", text)
     text = re.sub(r"\n?\f\n?", '</pre>\n<pre class="newpage">', text)
@@ -450,13 +639,14 @@ def main():
     parser = argparse.ArgumentParser(description="Convert RFC .txt files to .html ones.")
     parser.add_argument("files", nargs="+", metavar="FILE", help="text file to htmlize")
     parser.add_argument("-v", "--verbose", action="store_true", help="name the html files as they are created")
+    parser.add_argument("-p", "--paragraph-links", action="store_true", help="add link targets and pilcrow links to paragraphs")
     options = parser.parse_args()
 
     for filename_txt in options.files:
         filename_html = filename_txt + ".html"
         with open(filename_txt) as file_txt:
             with open(filename_html, "w") as file_html:
-                file_html.write(markup(file_txt.read()))
+                file_html.write(markup(file_txt.read(), paragraph_links=options.paragraph_links))
         if options.verbose:
             print(filename_html)
 
