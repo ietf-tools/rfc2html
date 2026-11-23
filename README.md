@@ -37,6 +37,20 @@ $ rfc2html -v rfc3344.txt
 rfc3344.txt.html
 ```
 
+#### Paragraph links
+
+Paragraph links are off by default. Pass `paragraph_links=True` (CLI: `-p`/`--paragraph-links`)
+to add a link target at the start of each paragraph and a pilcrow link at its end:
+
+```html
+   <a id="section-1-1"></a>Paragraph text...<a href="#section-1-1" class="pilcrow">¶</a>
+```
+
+The ids follow the scheme of the HTML generated from RFCs published as XML (`section-abstract-1`,
+`section-boilerplate.1-1`, `section-2.1-3`, `section-appendix.a-1`, ...). Plain-text documents carry
+no explicit structure, so only ordinary paragraphs get ids; figures, tables and lists are detected
+heuristically and only advance the paragraph counter. No CSS is included: style `a.pilcrow` as needed.
+
 ### History
 
 As a historic artifact of being a document series which was started at the time when the easiest

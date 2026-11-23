@@ -1,0 +1,32 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Packaging / build output
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Test, coverage and lint tooling
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Local scratch: rfc2html output next to its input (e.g. rfc3344.txt.html)
+*.txt.html
